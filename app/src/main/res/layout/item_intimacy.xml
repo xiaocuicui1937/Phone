@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <com.lol.contacts.view.CustomImageView
+        android:layout_height="80dp"
+        android:layout_width="80dp"
+        android:id="@+id/civ_itemintimacy_logo"
+        zhy:src="@drawable/dog"
+        zhy:type="circle"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="张无忌"
+        android:id="@+id/tv_itemintimacy_name"
+        android:textColor="#f1b565"
+        android:textSize="15sp"
+        android:gravity="center"
+        />
+</LinearLayout>

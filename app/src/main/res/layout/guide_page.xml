@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/iv_guide_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/yindao4_ps"
+        />
+     <Button
+         android:id="@+id/bt_guide_inpu"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textColor="@color/material_blue_grey_800"
+         android:background="@drawable/button_guide_background"
+         android:text="导入通讯录"
+         android:textSize="20sp"
+         android:layout_centerHorizontal="true"
+         android:layout_alignParentBottom="true"
+         android:layout_marginBottom="65dp"
+         />
+</RelativeLayout>

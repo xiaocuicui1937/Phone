@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#C4717E">
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:background="@drawable/bt_leftbg"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/bt_fragmentviewpager_tointimacy"
+            />
+
+        <com.lol.contacts.view.SegementControl
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            >
+
+        </com.lol.contacts.view.SegementControl>
+
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bt_rightbg"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            />
+    </RelativeLayout>
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <android.support.v4.view.ViewPager
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/vp_activitymain_showcontext"
+            android:layout_gravity="left|center_vertical"
+            >
+        </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <com.lol.contacts.view.MarqueeTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:text="@string/marqueeText"
+                android:textColor="@color/marqueeColor"
+                android:textSize="20sp"
+                android:id="@+id/mtv_fragmentviewpage_marquee"/>
+        </LinearLayout>
+
+
+
+            <com.lol.contacts.view.HeartView
+                android:id="@+id/hv_fragmentviewpager_heart"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="220dp"
+                android:layout_marginTop="370dp"
+                />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/iv_fragmentviewpage_blurbg"/>
+        <com.lol.contacts.utils.raindrop.RainView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+       <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:id="@+id/rl_fragmentviewpage_usermenu"
+            >
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/biglogo"
+                android:layout_centerInParent="true"
+                android:id="@+id/iv_fragmentviewpage_biglogo"
+                />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/tv_fragmentviewpager_call"
+                android:text="呼叫"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:background="@drawable/bg_call"
+                android:layout_marginLeft="20dp"
+                android:layout_centerVertical="true"
+                />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/tv_fragmentviewpager_sendmsg"
+                android:text="短信"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:background="@drawable/bg_call"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                />
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/tv_fragmentviewpager_userdetail"
+                android:text="详情"
+                android:textColor="#fff"
+                android:gravity="center"
+                android:background="@drawable/bg_call"
+                android:layout_above="@+id/iv_fragmentviewpage_biglogo"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="20dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="张三丰"
+                android:textColor="#FF925E"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/iv_fragmentviewpage_biglogo"
+                />
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+    <!--use open src indicator-->
+    <com.viewpagerindicator.TitlePageIndicator
+        android:id="@+id/idr_fragmentviewpage_indicator"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        app:selectedColor="#ff6100"
+        app:strokeWidth="1dp"
+        app:footerColor="#ff6100"
+        android:background="#6B6B9D"
+         />
+
+</LinearLayout>

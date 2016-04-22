@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- <style name="PhoneMode">
+        <item_pagecontent name="layout_width">wrap_content</item_pagecontent>
+        <item_pagecontent name="layout_height">wrap_content</item_pagecontent>
+        <item_pagecontent name="android:textSize">20sp</item_pagecontent>
+        <item_pagecontent name="android:textColor">#ff0000</item_pagecontent>
+    </style>-->
+</resources>
