@@ -19,7 +19,7 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Log.i("MainActivity","MainActivity");
         FragmentPhoneList fragmentPhoneList = new FragmentPhoneList();
         FragmentViewPage fragmentViewPage = new FragmentViewPage();
 
@@ -31,6 +31,6 @@ public class MainActivity extends Activity{
         //提交事务后才生效
         fragmentTransaction.commit();
         startService(new Intent(this,IntimacyDegreeService.class));
-        Log.i("tag","启动服务");
+
     }
 }

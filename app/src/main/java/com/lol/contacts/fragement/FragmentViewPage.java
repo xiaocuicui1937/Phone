@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.lol.contacts.Dao.ContactsDao;
 import com.lol.contacts.R;
+import com.lol.contacts.activity.AddContactActivity;
 import com.lol.contacts.activity.IntimacyActivity;
 import com.lol.contacts.bean.ContactListItemInfo;
 import com.lol.contacts.page.Page;
@@ -58,6 +59,7 @@ public class FragmentViewPage extends Fragment {
     private boolean mIsMarqueeStart;
     private MarqueeTextView mTv_fragmentviewpage_marquee;
     private List<ContactListItemInfo> mAllContacts;
+    private Button mBt_fragmentviewpage_adduserdetail;
 
     @Nullable
     @Override
@@ -71,7 +73,7 @@ public class FragmentViewPage extends Fragment {
         mBt_fragmentviewpager_tointimacy = (Button) mView.findViewById(R.id.bt_fragmentviewpager_tointimacy);
         mHv_fragmentviewpager_heart = (HeartView) mView.findViewById(R.id.hv_fragmentviewpager_heart);
         mTv_fragmentviewpage_marquee = (MarqueeTextView) mView.findViewById(R.id.mtv_fragmentviewpage_marquee);
-
+        mBt_fragmentviewpage_adduserdetail = (Button) mView.findViewById(R.id.bt_fragmentviewpage_adduserdetail);
 
         mTv_fragmentviewpager_call = (TextView) mView.findViewById(R.id.tv_fragmentviewpager_call);
         mTv_fragmentviewpager_sendmsg = (TextView) mView.findViewById(R.id.tv_fragmentviewpager_sendmsg);
@@ -91,7 +93,8 @@ public class FragmentViewPage extends Fragment {
         jumpToIntimacy();//半透明心形图片可以跳转到亲密度排行榜
         jumToIntimacyDetail();
         controlMarqueeText();//控制界面跑马灯效果，停止、开始、重新开始，有利于提升用户体验
-
+        //跳转到添加联系人界面
+        jumpToAddDetail();
         return mView;//super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -304,9 +307,18 @@ public class FragmentViewPage extends Fragment {
                 return true;
             }
         });
+
     }
 
+    private void jumpToAddDetail() {//跳转到添加联系人界面
 
+        mBt_fragmentviewpage_adduserdetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), AddContactActivity.class));
+            }
+        });
+    }
 }
 
 

@@ -60,9 +60,12 @@ public class Page {
         mIv_pagecontent_userimg6 = (CustomImageView) mRootView.findViewById(R.id.iv_pagecontent_userimg6);
         mIv_pagecontent_userimg7 = (CustomImageView) mRootView.findViewById(R.id.iv_pagecontent_userimg7);
 
+
+
         mIv_pagecontent_ringcenter = (ImageView) mRootView.findViewById(R.id.iv_pagecontent_ringcenter);
         //文本控件
         mTv_pagecontent_center = (TextView) mRootView.findViewById(R.id.tv_pagecontent_center);
+
 
 
         //创建dao数据库查询对象
@@ -71,6 +74,8 @@ public class Page {
         queryDataBase();
 
     }
+
+
     private void queryDataBase() {
         //查询数据库中联系人头像
         new Thread(){
@@ -78,7 +83,7 @@ public class Page {
             public void run() {
                  List<ContactListItemInfo> allContacts = mContactsDao.getAllContacts(mActivity);
                 super.run();
-                for (int i= 0;i<allContacts.size();i++){
+                for (int i= 0;i<1;i++){
                     ContactListItemInfo contactListItemInfo = allContacts.get(i);
                     Log.i("tag",contactListItemInfo.toString());
                 }
@@ -162,4 +167,7 @@ public class Page {
     private void setTextViewBreath() {
         BreathingViewHelper.setBreathingBackgroundColor(mTv_pagecontent_center, Color.parseColor("#99ff0000"));
     }
+
+
+
 }

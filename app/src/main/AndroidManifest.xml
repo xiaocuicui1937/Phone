@@ -20,7 +20,6 @@
         <activity android:name=".activity.DetailActivity" />
         <activity android:name=".activity.ModifyActivity" />
         <activity android:name=".activity.gdfg" />
-        <activity android:name=".activity.AddContactActivity" />
         <activity android:name=".clipCircleImage.ClipHeaderActivity" />
         <activity android:name=".activity.GuideActivity">
                 <intent-filter>
@@ -29,11 +28,11 @@
                 </intent-filter>
 
         </activity>
-
+        <activity android:name=".activity.AddContactActivity"/>
         <service
             android:name=".service.IntimacyDegreeService"
             android:enabled="true"
-            android:exported="true"></service>
+            />
     </application>
 
 </manifest>

@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.lol.contacts.R;
@@ -32,11 +31,11 @@ public class AddContactActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
-        initView();
+        //initView();
         initData(savedInstanceState);
     }
 
-    private void initView() {
+    /*private void initView() {
 
 
         iv_head_icon = (ImageView) findViewById(R.id.iv_head_icon);
@@ -49,7 +48,7 @@ public class AddContactActivity extends Activity {
         });
 
 
-    }
+    }*/
 
 
     private void initData(Bundle savedInstanceState) {

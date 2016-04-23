@@ -1,7 +1,6 @@
 package com.lol.contacts.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -97,10 +96,5 @@ public class GuideActivity extends Activity {
     private void initHoneyTable() {
         HoneyDegreeDbOpenHelper honeyDegreeDb = new HoneyDegreeDbOpenHelper(GuideActivity.this, "honeyDegreeDb.db", null, 1);
         SQLiteDatabase db = honeyDegreeDb.getWritableDatabase();
-    }
-    public void jump(View view) {
-        Intent intent = new Intent(GuideActivity.this, MainActivity.class);
-        startActivity(intent);
-        this.finish();
     }
 }

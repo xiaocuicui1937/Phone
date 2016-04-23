@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.lol.contacts.AddContactActivity">
+    tools:context="com.lol.contacts.activity.DetailActivity">
 
     <RelativeLayout
         android:id="@+id/rl_title"
@@ -73,7 +73,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
-                android:src="@drawable/default_logo"
+                roundedimageview:src="@drawable/default_logo"
 
 
                 />

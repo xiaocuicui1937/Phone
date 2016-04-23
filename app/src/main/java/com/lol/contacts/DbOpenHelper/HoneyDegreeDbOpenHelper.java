@@ -1,5 +1,6 @@
 package com.lol.contacts.DbOpenHelper;
 
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,21 +8,16 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.ContactsContract;
 
-import com.lol.contacts.Dao.ContactsDao;
-import com.lol.contacts.bean.ContactListItemInfo;
-
-import java.util.List;
-
-
-
 
 /**
- * Created by Administrator on 2016/4/21.
- */
+*功能：用于创建亲密度数据库，并实现初始化。
+*@author wzq
+*created at 】 10:53
+*/
+
 public class HoneyDegreeDbOpenHelper extends SQLiteOpenHelper {
 
     Context context;
-
 
     public HoneyDegreeDbOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -40,66 +36,64 @@ public class HoneyDegreeDbOpenHelper extends SQLiteOpenHelper {
 
     private void initTable(SQLiteDatabase db) {
 
-        ContactsDao contactsDb = new ContactsDao(context);
-        List<ContactListItemInfo> allContacts = contactsDb.getAllContacts(context);
-        for (ContactListItemInfo info:
-                allContacts
-             ) {
-            String contact_id = info.getmContact_id();
-            String rawContact_id = info.getmRawContact_id();
-            String name = info.getmName();
-            String count = info.getmContact_count();
-            String phone=getPhoneById(context,rawContact_id);
-            int score=getScore(Integer.valueOf(count));
-
-            ContentValues values = new ContentValues();
-            values.put("contact_id",contact_id);
-            values.put("name",name);
-            values.put("phone_number",phone);
-            values.put("count", Integer.valueOf(count));
-            values.put("score",score);
-            db.insert("honeyDegree",null,values);
-
-        }
-
-       /* ContentResolver contentResolver = context.getContentResolver();
-        String[] projection = {ContactsContract.Contacts._ID, ContactsContract.Contacts.TIMES_CONTACTED};
-
+        ContentResolver contentResolver = context.getContentResolver();
+        //contact_id  +    name  +  phone  + count
+        String[] projection = {
+                ContactsContract.Contacts._ID,
+                ContactsContract.Contacts.TIMES_CONTACTED
+        };
         Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, projection, null, null, null);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                String contactId = cursor.getString(0);
-                int time_count = cursor.getInt(1);
+        while (cursor.moveToNext()) {
+            String contact_id = cursor.getString(0);
+            int count = cursor.getInt(1);
+            int score = getScore(count);
+            ContentValues values = new ContentValues();
+            values.put("contact_id", contact_id);
 
-                int score = getScore(time_count);
+            values.put("count", count);
+            values.put("score", score);
 
-                ContentValues values = new ContentValues();
-
-                values.put("contact_id", contactId);
-                values.put("score", score);
-
-
-                db.insert("honeyDegree", null, values);
+            Cursor cursor_raw = contentResolver.query(ContactsContract.RawContacts.CONTENT_URI,
+                    new String[]{ContactsContract.RawContacts._ID,ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY},
+                    ContactsContract.RawContacts.CONTACT_ID + "=?",
+                    new String[]{contact_id},
+                    null
+            );
+            String rawCotact_id=null;
+            if(cursor_raw.moveToNext()){
+                 rawCotact_id = cursor_raw.getString(cursor_raw.getColumnIndex(ContactsContract.RawContacts._ID));
+                String name = cursor_raw.getString(cursor_raw.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY));
+                values.put("name",name);
 
             }
-            cursor.close();
-        }*/
-    }
-
-    private String getPhoneById(Context context, String rawContact_id) {
-        String phone=null;
-        Cursor query = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, new String[]{ContactsContract.Data.DATA1},
-                ContactsContract.Data.MIMETYPE + "=?", new String[]{"vnd.android.cursor.item/phone_v2"}, null);
-        if(query.moveToNext()){
-            phone  = query.getString(0);
+            if(rawCotact_id!=null){
+                Cursor cursor_data = contentResolver.query(ContactsContract.Data.CONTENT_URI,
+                        new String[]{ContactsContract.Data.DATA1},
+                        ContactsContract.Data.RAW_CONTACT_ID + "=? AND "+ ContactsContract.Data.MIMETYPE+"=?",
+                        new String[]{rawCotact_id,"vnd.android.cursor.item/phone_v2"},
+                        null
+                );
+                if(cursor_data.moveToNext()){
+                    String phone_number = cursor_data.getString(0);
+                    values.put("phone_number",phone_number);
+                }
+            }
+            db.insert("honeyDegree", null, values);
         }
+    }
+    private String getPhoneById(Context context, String rawContact_id) {
+        String phone = null;
+        Cursor query = context.getContentResolver().query(ContactsContract.Data.CONTENT_URI, new String[]{ContactsContract.Data.DATA1},
+                ContactsContract.Data.MIMETYPE + "=? AND " + ContactsContract.Data.RAW_CONTACT_ID + "=?", new String[]{"vnd.android.cursor.item/phone_v2", rawContact_id}, null);
+        if (query.moveToNext()) {
+            phone = query.getString(0);
+        }
+        System.out.println(phone + "==============");
         return phone;
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
-
     public int getScore(int number) {
         int re = -1;
         if (number == 0) {
@@ -108,11 +102,5 @@ public class HoneyDegreeDbOpenHelper extends SQLiteOpenHelper {
             re = 20 + (int) (80 - 80 / number);
         }
         return re;
-        //return score;
     }
-    //add de shihou ,xu yao gen ju qinmidu de zhi xiu gai biao
-    //delete de shi hou ,ye yao xiugai
-    //update de shihou ye yao
-    //check de shihou ye xuyao
-    //jiu xuyao ba db chuanhuoqu ,zheyao suoyou de douxuyao xiugai !!!!!!
 }
