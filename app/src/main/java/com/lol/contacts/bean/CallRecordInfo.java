@@ -14,15 +14,7 @@ public class CallRecordInfo {
     String mDetailDate;
     String mTimeDuration;
     String mPhotoId;
-    Bitmap mContactIcon;
-
-    public Bitmap getmContactIcon() {
-        return mContactIcon;
-    }
-
-    public void setmContactIcon(Bitmap mContactIcon) {
-        this.mContactIcon = mContactIcon;
-    }
+    //Bitmap mContactIcon;
 
     public int getmType() {
         return mType;
@@ -43,7 +35,7 @@ public class CallRecordInfo {
                 ", mDetailDate='" + mDetailDate + '\'' +
                 ", mTimeDuration='" + mTimeDuration + '\'' +
                 ", mPhotoId='" + mPhotoId + '\'' +
-                ", mContactIcon=" + mContactIcon +
+
                 '}';
     }
 
@@ -106,7 +98,5 @@ public class CallRecordInfo {
     public CallRecordInfo() {
 
     }
-
-
 }
 

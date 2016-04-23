@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.lol.contacts.Dao.ContactsDao;
 import com.lol.contacts.DbOpenHelper.HoneyDegreeDbOpenHelper;
 import com.lol.contacts.R;
+import com.lol.contacts.bean.ContactListItemInfo;
 import com.lol.contacts.view.GuideViewpager;
 
 import java.util.ArrayList;
@@ -30,14 +32,14 @@ public class GuideActivity extends Activity {
         setContentView(R.layout.activity_guide);
 
         //做一个viewPager。。。
-        //自定义viewPager，最后一页时自己处理左滑事件
+     /*   //自定义viewPager，最后一页时自己处理左滑事件
         View view = View.inflate(GuideActivity.this, R.layout.guide_page, null);
         iv_guide_image = (ImageView) view.findViewById(R.id.iv_guide_image);
         iv_guide_image.setImageResource(R.drawable.yindao1_ps);
         iv_guide_image.setScaleType(ImageView.ScaleType.FIT_XY);
        // view.findViewById(R)
 
-        list_guide_page = new ArrayList<>();
+        list_guide_page = new ArrayList<>();*/
 
         list_guide = new ArrayList<>();
 
@@ -65,6 +67,13 @@ public class GuideActivity extends Activity {
         vp_sflash_guidepage.setAdapter(new GuideViwePagerAdapter());
         //接收广播，
         initHoneyTable();
+
+        ContactsDao contactsDao = new ContactsDao(GuideActivity.this);
+        List<ContactListItemInfo> allContacts = contactsDao.getAllContacts(GuideActivity.this);
+        for (ContactListItemInfo info:allContacts
+             ) {
+            System.out.println(info.toString()+"=======================================");
+        }
     }
 
     class GuideViwePagerAdapter extends PagerAdapter{

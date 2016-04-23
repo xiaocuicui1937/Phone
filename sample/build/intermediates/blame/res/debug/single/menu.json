@@ -2,5 +2,9 @@
     {
         "merged": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\menu\\menu.xml",
         "source": "D:\\workSpace\\Phone\\sample\\src\\main\\res\\menu\\menu.xml"
+    },
+    {
+        "merged": "H:\\Contacts\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\menu\\menu.xml",
+        "source": "H:\\Contacts\\Phone\\sample\\src\\main\\res\\menu\\menu.xml"
     }
 ]

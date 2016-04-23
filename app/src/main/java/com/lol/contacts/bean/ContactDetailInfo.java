@@ -17,12 +17,12 @@ public class ContactDetailInfo {
     Bitmap mContact_icon;//null
     int mScore;
 
+
     @Override
     public String toString() {
         return "ContactDetailInfo{" +
                 "mContact_id='" + mContact_id + '\'' +
                 ", mRawContact_id='" + mRawContact_id + '\'' +
-
                 ", mDisplay_name='" + mDisplay_name + '\'' +
                 ", mPhone_number='" + mPhone_number + '\'' +
                 ", mEmail='" + mEmail + '\'' +
@@ -48,8 +48,6 @@ public class ContactDetailInfo {
     public void setmRawContact_id(String mRawContact_id) {
         this.mRawContact_id = mRawContact_id;
     }
-
-
 
     public String getmDisplay_name() {
         return mDisplay_name;

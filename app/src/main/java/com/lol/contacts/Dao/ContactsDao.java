@@ -1,11 +1,13 @@
 package com.lol.contacts.Dao;
 
 
+import android.Manifest;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.OperationApplicationException;
+import android.content.pm.PackageManager;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,6 +17,7 @@ import android.net.Uri;
 import android.os.RemoteException;
 import android.provider.CallLog;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 
 import com.lol.contacts.DbOpenHelper.HoneyDegreeDbOpenHelper;
 import com.lol.contacts.R;
@@ -48,9 +51,9 @@ import java.util.List;
  */
 public class ContactsDao {
     //create table honeyDegree (_id integer primary key autoincrement, contact_id varchar(4),score integer);";
-    public static final String HONEY_TABLE="honeyDegree";
-    public static final String HA_COLUMN_SCORE="score";
-    public static final String HA_COLUMN_CONTACTID="contact_id";
+    public static final String HONEY_TABLE = "honeyDegree";
+    public static final String HA_COLUMN_SCORE = "score";
+    public static final String HA_COLUMN_CONTACTID = "contact_id";
 
     public static final String MIMETYPE_NAME = "vnd.android.cursor.item/name";
     public static final String MIMETYPE_EMAIL = "vnd.android.cursor.item/email_v2";
@@ -60,17 +63,62 @@ public class ContactsDao {
 
     private SQLiteDatabase mHoneyDegreeDb;
 
-    public ContactsDao(Context context){
-
+    public ContactsDao(Context context) {
         HoneyDegreeDbOpenHelper honeyDegreeDb = new HoneyDegreeDbOpenHelper(context, "honeyDegreeDb.db", null, 1);
         mHoneyDegreeDb = honeyDegreeDb.getWritableDatabase();
     }
 
+   /* //获取所有的id
+    public List<ContactsIds> getContactsIds(Context context){
+
+        ArrayList<ContactsIds> contactsIdses = new ArrayList<>();
+
+        //check all   except  delete==1 orderby
+        ContentResolver contentResolver = context.getContentResolver();
+        //check raw get contact_id + rawContactId
+        //check contacts  get photoid
+
+        String [] projection={ContactsContract.RawContacts.CONTACT_ID, ContactsContract.RawContacts._ID};
+
+        Cursor cursor = contentResolver.query(ContactsContract.RawContacts.CONTENT_URI,
+                projection,
+                ContactsContract.RawContacts.DELETED + "=?",
+                new String[]{"0"},
+                ContactsContract.RawContacts.SORT_KEY_PRIMARY
+        );
+        while(cursor.moveToNext()){
+
+            ContactsIds ids = new ContactsIds();
+
+            String contact_id = cursor.getString(0);
+            ids.setmContactId(contact_id);
+
+            String rawContact_id = cursor.getString(1);
+            ids.setmRawContactId(rawContact_id);
+            //check contacts
+            Cursor cs_contact = contentResolver.query(ContactsContract.Contacts.CONTENT_URI,
+                    new String[]{ContactsContract.Contacts.PHOTO_ID},
+                    ContactsContract.Contacts._ID + "=?",
+                    new String[]{contact_id},
+                    null
+            );
+            if(cs_contact.moveToNext()){
+                String photo_id = cs_contact.getString(0);
+                ids.setmPhotoId(photo_id);
+            }
+            cs_contact.close();
+            contactsIdses.add(ids);
+
+        }
+        cursor.close();
+        return  contactsIdses;
+    }*/
     /**
-    *功能：获取所有的通话记录
-    *@author wzq
-    *created at 2016/4/21 13:35
-    */
+     *功能：获取所有的通话记录,一下子获取所有的数据，会oom，
+     *
+     *@author wzq
+     *created at 2016/4/21 13:35
+     */
     public List<CallRecordInfo> getCallLogMessage(Context context) {
 
         Uri uri = android.provider.CallLog.Calls.CONTENT_URI;
@@ -90,26 +138,42 @@ public class ContactsDao {
                 CallLog.Calls.CACHED_PHOTO_ID
         };
 
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return null;
+        }
         Cursor query = contentResolver.query(uri, projection, null, null, CallLog.Calls.DEFAULT_SORT_ORDER);
         query.moveToFirst();
 
         while (query.moveToNext()) {
-            System.out.println("jinru 循环");
+          //  System.out.println("jinru 循环");
             SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd");
+
             CallRecordInfo callRecordInfo = new CallRecordInfo();
+
             Date date_ = new Date(query.getLong(query.getColumnIndex(CallLog.Calls.DATE)));
             String date = sdf.format(date_);
             callRecordInfo.setmDate(date);
+
             String number = query.getString(query.getColumnIndex(CallLog.Calls.NUMBER));
             callRecordInfo.setmNumber(number);
+
             String name = query.getString(query.getColumnIndex(CallLog.Calls.CACHED_NAME));
             if (name == null || name!="") {
                 callRecordInfo.setmName(number);
             } else {
                 callRecordInfo.setmName(name);
             }
+
             int type = query.getInt(query.getColumnIndex(CallLog.Calls.TYPE));
             callRecordInfo.setmType(type);
+
             int id = query.getInt(query.getColumnIndex(CallLog.Calls._ID));
             callRecordInfo.setmId(id);
 
@@ -123,7 +187,7 @@ public class ContactsDao {
             String photo_id = query.getString(query.getColumnIndex(CallLog.Calls.CACHED_PHOTO_ID));
             callRecordInfo.setmPhotoId(photo_id);
 
-            Bitmap bitmap =null;
+           /* Bitmap bitmap =null;
             if(photo_id.equals("0")){
                 //给默认的
                 bitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.default_logo);
@@ -132,7 +196,7 @@ public class ContactsDao {
             }
             callRecordInfo.setmContactIcon(bitmap);
 
-            list_callLog.add(callRecordInfo);
+            list_callLog.add(callRecordInfo);*/
         }
         return list_callLog;
     }
@@ -143,25 +207,30 @@ public class ContactsDao {
     */
     private Bitmap getBitmapByPhotoId(Context context, String id) {
         Bitmap bitmap=null;
-        ContentResolver contentResolver = context.getContentResolver();
-        Cursor query = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[]{ContactsContract.Contacts.PHOTO_URI},
-                ContactsContract.Contacts.PHOTO_ID + "=?", new String[]{id}, null
-        );
-        if(query.moveToNext()){
-            String photo_uri = query.getString(0);
-            try {
-                AssetFileDescriptor afd = contentResolver.openAssetFileDescriptor(Uri.parse(photo_uri), "r");
-                FileInputStream inputStream = afd.createInputStream();
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inSampleSize=1;
-                bitmap = BitmapFactory.decodeStream(inputStream, null, options);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(id.equals("0")){
+            //给默认的
+            bitmap= BitmapFactory.decodeResource(context.getResources(), R.drawable.default_logo);
+        }else {
+
+            ContentResolver contentResolver = context.getContentResolver();
+            Cursor query = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, new String[]{ContactsContract.Contacts.PHOTO_URI},
+                    ContactsContract.Contacts.PHOTO_ID + "=?", new String[]{id}, null
+            );
+            if (query.moveToNext()) {
+                String photo_uri = query.getString(0);
+                try {
+                    AssetFileDescriptor afd = contentResolver.openAssetFileDescriptor(Uri.parse(photo_uri), "r");
+                    FileInputStream inputStream = afd.createInputStream();
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 1;
+                    bitmap = BitmapFactory.decodeStream(inputStream, null, options);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
-
 
         return  bitmap;
     }
@@ -400,11 +469,10 @@ public class ContactsDao {
 
         return contactInfo;
     }
-
     /**
-     * 功能：获取填充list需要的所有信息
+     * 功能：获取填充list需要的所有信息()会出现oom
      * 需要获取  name，contactId，phonebookLabel  根据sort_key
-     * 这里需要在子线程中调用，getBitmap是个耗时操作。
+     * 这里需要在子线0程中调用，getBitmap是个耗时操作。
      *
      * @author wzq
      * created at 2016/4/19 15:32
@@ -427,8 +495,8 @@ public class ContactsDao {
             itemInfo.setmName(display_name);
             itemInfo.setmPhoneBookLabel(phonebook_label);
 
-            Bitmap bitmap = getBitmap(Integer.valueOf(contact_id), context);
-            itemInfo.setmContact_icon(bitmap);
+          //  Bitmap bitmap = getBitmap(Integer.valueOf(contact_id), context);
+         //   itemInfo.setmContact_icon(bitmap);
 
             //设置亲密度
             Cursor query = mHoneyDegreeDb.query(HONEY_TABLE, new String[]{HA_COLUMN_SCORE}, HA_COLUMN_CONTACTID + "=?",
@@ -444,6 +512,7 @@ public class ContactsDao {
             itemInfo.setmLast_time_contact(last_time);
             contactListInfos.add(itemInfo);
         }
+        cs_raw.close();
         //2：根据rawContactId在data中获取信息
         return contactListInfos;
     }
@@ -455,6 +524,7 @@ public class ContactsDao {
         if(query.moveToNext()){
             last_time=query.getString(0);
         }
+        query.close();
         return last_time;
     }
 
@@ -465,6 +535,7 @@ public class ContactsDao {
         if(query.moveToNext()){
             count=query.getString(0);
         }
+        query.close();
         return count;
     }
 
@@ -502,6 +573,7 @@ public class ContactsDao {
                 bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.default_logo);
             }
         }
+        query.close();
         return bitmap;
     }
 }

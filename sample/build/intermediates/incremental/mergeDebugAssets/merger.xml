@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="unspecified"><source path="D:\workSpace\Phone\sample\build\intermediates\exploded-aar\Phone\library\unspecified\assets"/></dataSet><dataSet config="main"><source path="D:\workSpace\Phone\sample\src\main\assets"/></dataSet><dataSet config="debug"><source path="D:\workSpace\Phone\sample\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="unspecified"><source path="H:\Contacts\Phone\sample\build\intermediates\exploded-aar\Phone\library\unspecified\assets"/></dataSet><dataSet config="main"><source path="H:\Contacts\Phone\sample\src\main\assets"/></dataSet><dataSet config="debug"><source path="H:\Contacts\Phone\sample\src\debug\assets"/></dataSet></merger>

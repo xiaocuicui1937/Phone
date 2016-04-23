@@ -1,26 +1,50 @@
 [
     {
-        "merged": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\custom_tab_indicator.xml",
-        "source": "D:\\workSpace\\Phone\\sample\\src\\main\\res\\drawable\\custom_tab_indicator.xml"
-    },
-    {
-        "merged": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\vpi__tab_indicator.xml",
-        "source": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\exploded-aar\\Phone\\library\\unspecified\\res\\drawable\\vpi__tab_indicator.xml"
-    },
-    {
         "merged": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\perm_group_location.xml",
         "source": "D:\\workSpace\\Phone\\sample\\src\\main\\res\\drawable\\perm_group_location.xml"
     },
     {
-        "merged": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\perm_group_camera.xml",
-        "source": "D:\\workSpace\\Phone\\sample\\src\\main\\res\\drawable\\perm_group_camera.xml"
+        "merged": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\perm_group_calendar.xml",
+        "source": "D:\\workSpace\\Phone\\sample\\src\\main\\res\\drawable\\perm_group_calendar.xml"
     },
     {
         "merged": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\perm_group_device_alarms.xml",
         "source": "D:\\workSpace\\Phone\\sample\\src\\main\\res\\drawable\\perm_group_device_alarms.xml"
     },
     {
-        "merged": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\perm_group_calendar.xml",
-        "source": "D:\\workSpace\\Phone\\sample\\src\\main\\res\\drawable\\perm_group_calendar.xml"
+        "merged": "H:\\Contacts\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\custom_tab_indicator.xml",
+        "source": "H:\\Contacts\\Phone\\sample\\src\\main\\res\\drawable\\custom_tab_indicator.xml"
+    },
+    {
+        "merged": "H:\\Contacts\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\perm_group_calendar.xml",
+        "source": "H:\\Contacts\\Phone\\sample\\src\\main\\res\\drawable\\perm_group_calendar.xml"
+    },
+    {
+        "merged": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\perm_group_camera.xml",
+        "source": "D:\\workSpace\\Phone\\sample\\src\\main\\res\\drawable\\perm_group_camera.xml"
+    },
+    {
+        "merged": "H:\\Contacts\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\perm_group_camera.xml",
+        "source": "H:\\Contacts\\Phone\\sample\\src\\main\\res\\drawable\\perm_group_camera.xml"
+    },
+    {
+        "merged": "H:\\Contacts\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\perm_group_location.xml",
+        "source": "H:\\Contacts\\Phone\\sample\\src\\main\\res\\drawable\\perm_group_location.xml"
+    },
+    {
+        "merged": "H:\\Contacts\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\vpi__tab_indicator.xml",
+        "source": "H:\\Contacts\\Phone\\sample\\build\\intermediates\\exploded-aar\\Phone\\library\\unspecified\\res\\drawable\\vpi__tab_indicator.xml"
+    },
+    {
+        "merged": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\custom_tab_indicator.xml",
+        "source": "D:\\workSpace\\Phone\\sample\\src\\main\\res\\drawable\\custom_tab_indicator.xml"
+    },
+    {
+        "merged": "H:\\Contacts\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\perm_group_device_alarms.xml",
+        "source": "H:\\Contacts\\Phone\\sample\\src\\main\\res\\drawable\\perm_group_device_alarms.xml"
+    },
+    {
+        "merged": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\res\\merged\\debug\\drawable\\vpi__tab_indicator.xml",
+        "source": "D:\\workSpace\\Phone\\sample\\build\\intermediates\\exploded-aar\\Phone\\library\\unspecified\\res\\drawable\\vpi__tab_indicator.xml"
     }
 ]

@@ -4,6 +4,14 @@
         "source": "D:\\workSpace\\Phone\\library\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
     },
     {
+        "merged": "H:\\Contacts\\Phone\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
+        "source": "H:\\Contacts\\Phone\\library\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
+    },
+    {
+        "merged": "H:\\Contacts\\Phone\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__dark_theme.xml",
+        "source": "H:\\Contacts\\Phone\\library\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__dark_theme.xml"
+    },
+    {
         "merged": "D:\\workSpace\\Phone\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\color\\vpi__light_theme.xml",
         "source": "D:\\workSpace\\Phone\\library\\build\\intermediates\\bundles\\debug\\res\\color\\vpi__light_theme.xml"
     }

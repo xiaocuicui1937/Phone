@@ -46,9 +46,6 @@ public class Page {
         initView();
         initData();
     }
-
-
-
     private void initView() {
         mRootView = View.inflate(mActivity, R.layout.page_content, null);
         //自定义iv view控件

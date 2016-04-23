@@ -64,7 +64,6 @@ public class HoneyDegreeDbOpenHelper extends SQLiteOpenHelper {
                  rawCotact_id = cursor_raw.getString(cursor_raw.getColumnIndex(ContactsContract.RawContacts._ID));
                 String name = cursor_raw.getString(cursor_raw.getColumnIndex(ContactsContract.RawContacts.DISPLAY_NAME_PRIMARY));
                 values.put("name",name);
-
             }
             if(rawCotact_id!=null){
                 Cursor cursor_data = contentResolver.query(ContactsContract.Data.CONTENT_URI,
@@ -88,7 +87,7 @@ public class HoneyDegreeDbOpenHelper extends SQLiteOpenHelper {
         if (query.moveToNext()) {
             phone = query.getString(0);
         }
-        System.out.println(phone + "==============");
+
         return phone;
     }
     @Override
