@@ -60,8 +60,9 @@ public class HeartView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-
-		canvas.drawBitmap(mBitmap, new Matrix(), mPaint);
+		Matrix matrix = new Matrix();
+		matrix.postScale(0.65f,0.65f);
+		canvas.drawBitmap(mBitmap,matrix, mPaint);
 
 	}// end onDraw
 
