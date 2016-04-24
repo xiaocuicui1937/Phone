@@ -2,10 +2,15 @@ package com.lol.contacts.bean;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2016/4/20.
  */
-public class CallRecordInfo {
+public class CallRecordInfo implements Serializable{
+
+
+
     private int mId;
     private String mName; // 名称
     private String mNumber; // 号码
@@ -15,6 +20,10 @@ public class CallRecordInfo {
     String mTimeDuration;
     String mPhotoId;
     //Bitmap mContactIcon;
+
+    public CallRecordInfo(String mName) {
+        this.mName = mName;
+    }
 
     public int getmType() {
         return mType;

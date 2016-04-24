@@ -16,8 +16,6 @@ import com.lol.contacts.utils.BreathingViewHelper;
 import com.lol.contacts.view.CustomImageView;
 
 import java.util.List;
-
-
 /**
  * Created by hh on 2016/4/19.
  */
@@ -164,7 +162,4 @@ public class Page {
     private void setTextViewBreath() {
         BreathingViewHelper.setBreathingBackgroundColor(mTv_pagecontent_center, Color.parseColor("#99ff0000"));
     }
-
-
-
 }

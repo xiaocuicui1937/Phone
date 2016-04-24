@@ -26,7 +26,7 @@ public class GuideViewpager extends ViewPager {
         this.context=context;
     }
 
-    //监测左滑事件，如果是不是最后一页，do  noting，如果是最后一页，那么跳转
+    /*//监测左滑事件，如果是不是最后一页，do  noting，如果是最后一页，那么跳转
     float start_x;
     float start_y;
     float end_x;
@@ -55,8 +55,6 @@ public class GuideViewpager extends ViewPager {
                 break;
 
         }
-
-
         return super.onTouchEvent(ev);
-    }
+    }*/
 }
