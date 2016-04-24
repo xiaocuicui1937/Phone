@@ -28,11 +28,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.AddContactActivity"/>
-
         <service
             android:name=".service.IntimacyDegreeService"
             android:enabled="true"/>
-
     </application>
-
 </manifest>

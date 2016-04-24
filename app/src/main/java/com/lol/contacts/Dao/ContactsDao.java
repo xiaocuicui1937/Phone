@@ -2,6 +2,7 @@ package com.lol.contacts.Dao;
 
 
 import android.Manifest;
+import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -112,6 +113,7 @@ public class ContactsDao {
             CallRecordInfo callRecordInfo = new CallRecordInfo();
 
             Date date_ = new Date(query.getLong(query.getColumnIndex(CallLog.Calls.DATE)));
+
             String date = sdf.format(date_);
             callRecordInfo.setmDate(date);
 
@@ -140,7 +142,11 @@ public class ContactsDao {
 
             String photo_id = query.getString(query.getColumnIndex(CallLog.Calls.CACHED_PHOTO_ID));
             callRecordInfo.setmPhotoId(photo_id);
+
+
+            list_callLog.add(callRecordInfo);
         }
+        query.close();
         return list_callLog;
     }
     /**
@@ -237,19 +243,20 @@ public class ContactsDao {
                 .build()
         );
         //bitmap
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        image_icon.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] bytes = baos.toByteArray();
-        opt.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
-                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-                .withValue(ContactsContract.Data.MIMETYPE, MIMETYPE_PHOTO)
-                .withValue(ContactsContract.Contacts.Photo.PHOTO, bytes)
-                .withValue(ContactsContract.Data.IS_PRIMARY, "1")
-                .withValue(ContactsContract.Data.IS_SUPER_PRIMARY, "1")
-                .withValue(ContactsContract.Data.DATA14, "1")
-                .build()
-        );
-
+        if(image_icon!=null){
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            image_icon.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] bytes = baos.toByteArray();
+            opt.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                    .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                    .withValue(ContactsContract.Data.MIMETYPE, MIMETYPE_PHOTO)
+                    .withValue(ContactsContract.Contacts.Photo.PHOTO, bytes)
+                    .withValue(ContactsContract.Data.IS_PRIMARY, "1")
+                    .withValue(ContactsContract.Data.IS_SUPER_PRIMARY, "1")
+                    .withValue(ContactsContract.Data.DATA14, "1")
+                    .build()
+            );
+        }
         try {
             contentResolver.applyBatch(ContactsContract.AUTHORITY, opt);
         } catch (RemoteException e) {
@@ -269,20 +276,64 @@ public class ContactsDao {
     public  void updateContact(Context context, ContactDetailInfo info) {
         String contact_id = info.getmContact_id();
         String rawContact_id = info.getmRawContact_id();
-        String name = info.getmDisplay_name();
+/*        String name = info.getmDisplay_name();
         String phoneNumber = info.getmPhone_number();
         String email = info.getmEmail();
         String address = info.getmAddress();
         Bitmap bitmap = info.getmContact_icon();
-        int score = info.getmScore();
+        int score = info.getmScore();*/
 
+        ContactsDao contactsDao = new ContactsDao(context);
+        contactsDao.deleteContact(context,contact_id,rawContact_id);
+        contactsDao.insert(context,info);
+
+/*
+        //需要先判断data中是否存在该项，如果存在的话，就updata，if不存在，就insert
         //update score
         ContentValues values = new ContentValues();
         values.put(HA_COLUMN_SCORE,score);
         mHoneyDegreeDb.update(HONEY_TABLE,values,HA_COLUMN_CONTACTID+"=?",new String[]{contact_id});
 
+
         ContentResolver contentResolver = context.getContentResolver();
-        //这里的opt是数据据的batch操作
+        String mimetype= MIMETYPE_EMAIL;
+
+        values.put(ContactsContract.Data.DATA1,email);
+        values.put(ContactsContract.Data.MIMETYPE,MIMETYPE_EMAIL);
+
+        boolean inData = isInData(context, rawContact_id, mimetype);
+
+        System.out.println(inData+"===================================");
+        if(inData){
+            //update
+            contentResolver.update(ContactsContract.Data.CONTENT_URI,
+                    values,
+                    ContactsContract.Data.RAW_CONTACT_ID + "=? AND " + ContactsContract.Data.MIMETYPE + "=?",
+                    new String[]{rawContact_id, MIMETYPE_EMAIL});
+
+            values.clear();
+        }else{
+            //insert
+            values.put(ContactsContract.Data.RAW_CONTACT_ID,rawContact_id);
+            values.put(ContactsContract.Data.MIMETYPE,MIMETYPE_EMAIL);
+            values.put("data1",email);
+            contentResolver.insert(ContactsContract.Data.CONTENT_URI,values);
+
+          *//*  values.put("raw_contact_id", contact_id);
+            values.put(Data.MIMETYPE,"vnd.android.cursor.item/email_v2");
+            values.put("data2", "2");   //单位
+            values.put("data1", "xzdong@xzdong.com");
+            resolver.insert(uri, values);*//*
+           *//* values.put(ContactsContract.Data.MIMETYPE,MIMETYPE_EMAIL);
+            values.put(ContactsContract.CommonDataKinds.Email.DATA, email);
+            *//*
+           // contentResolver.insert(ContactsContract.Data.CONTENT_URI,values);
+
+
+        }*/
+
+
+       /* //这里的opt是数据据的batch操作
         ArrayList<ContentProviderOperation> opt = new ArrayList<>();
 
         //name
@@ -343,7 +394,21 @@ public class ContactsDao {
             e.printStackTrace();
         } catch (OperationApplicationException e) {
             e.printStackTrace();
+        }*/
+    }
+
+    private boolean isInData(Context context,String rawContact_id, String mimetype) {
+        ContentResolver contentResolver = context.getContentResolver();
+        Cursor query = contentResolver.query(ContactsContract.Data.CONTENT_URI, null,
+                ContactsContract.Data.RAW_CONTACT_ID + "=? AND " + ContactsContract.Data.MIMETYPE + "=?",
+                new String[]{rawContact_id, mimetype},
+                null
+        );
+        if (query.moveToNext()){
+            return true;
         }
+        query.close();
+        return false;
     }
 
     /**

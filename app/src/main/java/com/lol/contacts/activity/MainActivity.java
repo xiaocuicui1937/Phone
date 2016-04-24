@@ -31,6 +31,5 @@ public class MainActivity extends Activity{
         //提交事务后才生效
         fragmentTransaction.commit();
         startService(new Intent(this,IntimacyDegreeService.class));
-
     }
 }

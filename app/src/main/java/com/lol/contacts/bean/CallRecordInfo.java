@@ -33,6 +33,17 @@ public class CallRecordInfo implements Serializable{
         this.mType = mType;
     }
 
+    public CallRecordInfo(int mId, String mName, String mNumber, String mDate, int mType, String mDetailDate, String mTimeDuration, String mPhotoId) {
+        this.mId = mId;
+        this.mName = mName;
+        this.mNumber = mNumber;
+        this.mDate = mDate;
+        this.mType = mType;
+        this.mDetailDate = mDetailDate;
+        this.mTimeDuration = mTimeDuration;
+        this.mPhotoId = mPhotoId;
+    }
+
     @Override
     public String toString() {
         return "CallRecordInfo{" +
