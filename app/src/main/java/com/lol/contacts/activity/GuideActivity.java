@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import com.lol.contacts.Dao.ContactsDao;
 import com.lol.contacts.DbOpenHelper.HoneyDegreeDbOpenHelper;
 import com.lol.contacts.R;
+import com.lol.contacts.bean.ContactDetailInfo;
 import com.lol.contacts.bean.ContactListItemInfo;
 import com.lol.contacts.view.GuideViewpager;
 
@@ -49,6 +50,7 @@ public class GuideActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
+
         //check   是否是第一次，如果不是的话，就直接跳到main，
         SharedPreferences config = getSharedPreferences("config", MODE_PRIVATE);
         boolean isFirstTime = config.getBoolean("isFirstTime", true);
@@ -60,7 +62,6 @@ public class GuideActivity extends Activity {
             intoGuidePage(config);//进入引导页
         }
     }
-
     private void intoGuidePage(SharedPreferences config) {
         SharedPreferences.Editor edit = config.edit();
         edit.putBoolean("isFirstTime",false);
@@ -81,7 +82,6 @@ public class GuideActivity extends Activity {
                 initHoneyTable();
             }
         });
-
         vp_sflash_guidepage.setAdapter(new GuideViwePagerAdapter());
 
         vp_sflash_guidepage.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
